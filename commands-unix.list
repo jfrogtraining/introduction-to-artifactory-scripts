@@ -1,0 +1,68 @@
+############################################################
+##FIRST COMMANDS : GET YOUR PACKAGE AND LAUNCH ARTIFACTORY##
+############################################################
+#keep your git directory in memory for latest command
+export SCRIPT_DIR=$(pwd)
+
+#Set your workspace directory for the class
+export WORKSPACE_CLASS=<SetYourPathHere>
+
+#define a user login to connect to artifactory (further usage)
+export USER_LOGIN=<ProvideUserLogin>
+
+#Download the following archive from the common Artifactory for the class
+cd $WORKSPACE_CLASS
+
+curl -L <url-to-central-artifactory> -o <FILE.EXT>
+
+#unzip the archive 
+unzip <FILE.EXT> -d $WORKSPACE_CLASS
+
+#launch Artifactory
+cd artifactory-pro-4.?.?\bin
+
+sh artifactory.sh
+
+##################################################################
+##                   OVERVIEW   SECTION                         ##
+##OPTIONNAL (if you did not use the UI): Create a non admin user##
+##################################################################
+#First edit user.json file and provide an email adress and password
+#Create your first user (provide user login in the url
+
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/security/users/$USER_LOGIN -H "content-type: application/vnd.org.jfrog.artifactory.security.User+json" -T $SCRIPT_DIR/user.json
+
+################################################################################
+##                   REPOSITORIES   SECTION                                   ##
+##OPTIONNAL (if you did not use the UI): Lets create repositories (a solution)##
+################################################################################
+#Create local maven repository for snapshots
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/repositories/my-mvn-snapshot-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-snapshot-local-config.json
+
+#Create local maven repository for releases
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/repositories/my-mvn-release-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-release-local-config.json
+
+#Create virtual maven repository for snapshots
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/repositories/my-mvn-snapshots -H "content-type: application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-snapshot-virtual-config.json
+
+#Create virtual maven repository for releases
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/repositories/my-mvn-releases -H "content-type: application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-release-virtual-config.json
+
+################################################################################
+##                   SECURITY   SECTION                                       ##
+##OPTIONNAL (if you did not use the UI): Lets start with secutity (a solution)##
+################################################################################
+#Create a group for dev team
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/security/groups/dev-team -H "content-type: application/vnd.org.jfrog.artifactory.security.Group+json" -T %SCRIPT_DIR%/group.json
+
+#update user and add it to dev-team group
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/security/users/$USER_LOGIN -H "content-type: application/vnd.org.jfrog.artifactory.security.User+json" -T %SCRIPT_DIR%/update-user.json
+
+#create permission target for read external, third party libs and local artifacts (both snapshots and releases)
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/security/permissions/dev-team-read -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T %SCRIPT_DIR%/permission-target-read.json
+
+#create permission target for write snapshots only
+curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/security/permissions/dev-team-write -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T %SCRIPT_DIR%/permission-target-write.json
+
+#Remove the "Anything" permissions to prevent dev team to consume artifacts from other projects
+curl -uadmin:password -X DELETE http://localhost:8081/artifactory/api/security/permissions/Anything
