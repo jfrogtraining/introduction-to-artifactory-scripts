@@ -13,10 +13,13 @@ export USER_LOGIN=<ProvideUserLogin>
 #Download the following archive from the common Artifactory for the class
 cd $WORKSPACE_CLASS
 
-curl -L <url-to-central-artifactory> -o <FILE.EXT>
+curl -O <url-to-central-artifactory>/jswampup/artifactory/artifactory-pro-<VERSION?>.zip
 
 #unzip the archive 
 unzip <FILE.EXT> -d $WORKSPACE_CLASS
+
+#get and deploy the license
+curl -L <url-to-central-artifactory>/jswampup/licenses/artifactory-P1.lic -o artifactory-pro-<VERSION?>/etc/artifactory.lic
 
 #launch Artifactory
 cd artifactory-pro-4.?.?\bin
@@ -66,3 +69,14 @@ curl -uadmin:password -X PUT http://localhost:8081/artifactory/api/security/perm
 
 #Remove the "Anything" permissions to prevent dev team to consume artifacts from other projects
 curl -uadmin:password -X DELETE http://localhost:8081/artifactory/api/security/permissions/Anything
+
+################################################################################
+##                   Working with build tools and CI Server                   ##
+##OPTIONNAL (if you did not use the UI): Let's create a new user              ##
+################################################################################
+#create a user for jenkins
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/users/jenkins -H "content-type: application/vnd.org.jfrog.artifactory.security.User+json" -T $SCRIPT_DIR/jenkins-user.json
+
+#create permission for jenkins
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/permissions/jenkins-perm -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T $SCRIPT_DIR/permission-target-jenkins.json
+
