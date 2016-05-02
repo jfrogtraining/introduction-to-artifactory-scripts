@@ -1,5 +1,5 @@
 {
-  "repositories": ["my-mvn-snapshot-local","my-mvn-staging-local"],
+  "repositories": ["my-mvn-snapshot-local","my-mvn-staging-local", "my-mvn-release-local"],
   "principals": {
         "users" : {
           "jenkins" : ["d","w","n", "r"]

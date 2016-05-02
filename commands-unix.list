@@ -13,13 +13,13 @@ export USER_LOGIN=<ProvideUserLogin>
 #Download the following archive from the common Artifactory for the class
 cd $WORKSPACE_CLASS
 
-curl -O <url-to-central-artifactory>/jswampup/artifactory/artifactory-pro-<VERSION?>.zip
+url -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/artifactory/artifactory-pro-<VERSION?>.zip 
 
 #unzip the archive 
 unzip <FILE.EXT> -d $WORKSPACE_CLASS
 
 #get and deploy the license
-curl -L <url-to-central-artifactory>/jswampup/licenses/artifactory-P1.lic -o artifactory-pro-<VERSION?>/etc/artifactory.lic
+curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>"  <url-to-central-artifactory>/jswampup/licenses/artifactory-P1.lic -o artifactory-pro-<VERSION?>/etc/artifactory.lic
 
 #launch Artifactory
 cd artifactory-pro-4.?.?\bin
@@ -43,7 +43,7 @@ curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/user
 curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-snapshot-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-snapshot-local-config.json
 
 #Create local maven repository for releases
-curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-release-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-release-local-config.json
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-staging-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-staging-local-config.json
 
 #Create virtual maven repository for snapshots
 curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-snapshots -H "content-type: application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-snapshot-virtual-config.json
@@ -71,6 +71,21 @@ curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/perm
 curl -uadmin:password -X DELETE http://localhost:9091/artifactory/api/security/permissions/Anything
 
 ################################################################################
+##                   WORKING WITH CI SERVER (AFTERNOON)                       ##
+################################################################################
+
+#download preconfigured jenkins 
+
+
+
+#TODO
+
+
+
+
+
+
+################################################################################
 ##                   Working with build tools and CI Server                   ##
 ##OPTIONNAL (if you did not use the UI): Let's create a new user              ##
 ################################################################################
@@ -80,3 +95,35 @@ curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/user
 #create permission for jenkins
 curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/permissions/jenkins-perm -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T $SCRIPT_DIR/permission-target-jenkins.json
 
+###############################################################################
+##                           LET'S PROMOTE                                    ##
+##OPTIONNAL (if you did not use the UI): Need some place to promote to!       ##
+################################################################################
+#Create local maven repository for releases
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-release-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-release-local-config.json
+
+#update virtuel repository for releases
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-releases -H "content-type: application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-release-virtual-config2.json
+
+#update permission target for jenkins user
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/permissions/jenkins-perm -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T $SCRIPT_DIR/update-permission-target-jenkins.json
+
+################################################################################
+##                           LET'S AUTOMATE PROMOTION                         ##
+################################################################################
+#Create local maven repository for production (can be done through the UI)
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-prod-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T $SCRIPT_DIR/repository-release-local-config.json
+
+#update permission target for user (can be done through the UI)
+curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/permissions/release-eng-perm -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T $SCRIPT_DIR/permission-target-release-eng.json
+
+#promote the build to production
+curl -H "X-JFrog-Artifactory-Art-Api:<InsertYourApiKeyHere>" -X POST http://localhost:9091/artifactory/api/build/promotion/<InsertBuildName>/<InsertBuildNumber> -T $SCRIPT_DIR/promote.json
+
+################################################################################
+##                           LET'S USE THE CLI                                ##
+################################################################################
+#download the CLI from our central Artifactory (in real life do it from bintray)
+curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/cli/1.1.0/jfrog-cli-windows-amd64
+
+#upload some files with properties : product.version=1.0 and product.name=PiedPiper
