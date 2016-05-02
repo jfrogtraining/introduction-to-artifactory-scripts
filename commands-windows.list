@@ -15,12 +15,18 @@ cd %WORKSPACE_CLASS%
 
 curl -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/artifactory/artifactory-pro-<VERSION?>.zip 
 
+##################################################################
+##                   OVERVIEW   SECTION                         ##
+##              START ARTIFACTORY AND CONNECT                   ##
+##################################################################
+
 #unzip the archive 
 jar xf artifactory-pro-<VERSION?>.zip
 
 #get and deploy the license
 curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>"  <url-to-central-artifactory>/jswampup/licenses/artifactory-P1.lic -o artifactory-pro-<VERSION?>/etc/artifactory.lic
 
+#open a new command line and navigate to your WORKSPACE_CLASS directory
 #launch Artifactory
 cd artifactory-pro-4.?.?\bin
 
@@ -86,7 +92,7 @@ cd swampupjenkins
 
 set JENKINS_HOME=%cd%
 
-java -jar swampupjenkins\jenkins.war --httpPort=9090
+java -jar jenkins.war --httpPort=9090
 
 ################################################################################
 ##                   WORKING WITH BUILD TOOLS AND CI SERVER                   ##
@@ -129,4 +135,4 @@ curl -H "X-JFrog-Artifactory-Art-Api:<InsertYourApiKeyHere>" -X POST http://loca
 #download the CLI from our central Artifactory (in real life do it from bintray)
 curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/cli/1.1.0/jfrog-cli-windows-amd64
 
-#upload some files with properties 
+#upload some files with properties : product.version=1.0 and product.name=PiedPiper

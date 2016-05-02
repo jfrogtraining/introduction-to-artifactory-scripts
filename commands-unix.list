@@ -15,12 +15,18 @@ cd $WORKSPACE_CLASS
 
 url -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/artifactory/artifactory-pro-<VERSION?>.zip 
 
+##################################################################
+##                   OVERVIEW   SECTION                         ##
+##              START ARTIFACTORY AND CONNECT                   ##
+##################################################################
+
 #unzip the archive 
 unzip <FILE.EXT> -d $WORKSPACE_CLASS
 
 #get and deploy the license
 curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>"  <url-to-central-artifactory>/jswampup/licenses/artifactory-P1.lic -o artifactory-pro-<VERSION?>/etc/artifactory.lic
 
+#open a new terminal and navigate to your WORKSPACE_CLASS
 #launch Artifactory
 cd artifactory-pro-4.?.?\bin
 
