@@ -1,5 +1,5 @@
 ############################################################
-##FIRST COMMANDS : GET YOUR PACKAGE AND LAUNCH ARTIFACTORY##
+##FIRST COMMANDS : GET YOUR ARTIFACTORY                   ##
 ############################################################
 #keep your git directory in memory for latest command
 set SCRIPT_DIR=%cd%
@@ -86,9 +86,9 @@ cd \
 
 curl  -H "X-JFrog-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/jenkins/windows/swampupjenkins.zip
 
-jar xf swampupjenkins.zip
+jar xf swampup.zip
 
-cd swampupjenkins
+cd swampup
 
 set JENKINS_HOME=%cd%
 

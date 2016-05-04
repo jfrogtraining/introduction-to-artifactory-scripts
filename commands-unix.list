@@ -1,5 +1,5 @@
 ############################################################
-##FIRST COMMANDS : GET YOUR PACKAGE AND LAUNCH ARTIFACTORY##
+##FIRST COMMANDS : GET YOUR Artifactory                   ##
 ############################################################
 #keep your git directory in memory for latest command
 export SCRIPT_DIR=$(pwd)
