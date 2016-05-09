@@ -112,7 +112,7 @@ curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/perm
 curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-release-local -H "content-type: application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json" -T %SCRIPT_DIR%\repository-release-local-config.json
 
 #update virtuel repository for releases
-curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/my-mvn-releases -H "content-type: application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json" -T %SCRIPT_DIR%\repository-release-virtual-config2.json
+curl -uadmin:password -X POST http://localhost:9091/artifactory/api/repositories/my-mvn-releases -H "content-type: application/json" -T %SCRIPT_DIR%\repository-release-virtual-config2.json
 
 #update permission target for jenkins user
 curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/permissions/jenkins-perm -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T %SCRIPT_DIR%\update-permission-target-jenkins.json
