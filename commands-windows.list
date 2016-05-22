@@ -30,7 +30,7 @@ jar xf artifactory-pro-4.7.6.zip
 #launch Artifactory
 cd artifactory-pro-4.?.?\bin
 
-artifactory.bat
+artifactory.bat <ProvideAName>
 
 ##################################################################
 ##                   OVERVIEW   SECTION                         ##
