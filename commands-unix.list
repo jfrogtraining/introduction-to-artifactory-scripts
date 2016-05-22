@@ -13,7 +13,7 @@ export USER_LOGIN=<ProvideUserLogin>
 #Download the following archive from the common Artifactory for the class
 cd $WORKSPACE_CLASS
 
-url -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/artifactory/artifactory-pro-4.7.6.zip 
+curl -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/artifactory/artifactory-pro-4.7.6.zip 
 
 ##################################################################
 ##                   OVERVIEW   SECTION                         ##
