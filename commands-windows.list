@@ -80,6 +80,19 @@ curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/perm
 curl -uadmin:password -X DELETE http://localhost:9091/artifactory/api/security/permissions/Anything
 
 ################################################################################
+##                   WORKING WITH BUILD TOOLS                   ##
+################################################################################
+#clone the project-example repository
+cd $WORKSPACE_CLASS
+
+git clone https://simarsingh@bitbucket.org/simarsingh/project-examples.git
+
+cd project-examples
+
+cd maven-example
+
+mvn install
+################################################################################
 ##                   WORKING WITH CI SERVER (AFTERNOON)                       ##
 ################################################################################
 #open a new command line in admin mode
