@@ -13,7 +13,7 @@ set USER_LOGIN=<ProvideUserLogin>
 #Download the following archive from the common Artifactory for the class
 cd %WORKSPACE_CLASS%
 
-curl -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/artifactory/artifactory-pro-<VERSION?>.zip 
+curl -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/artifactory/artifactory-pro-4.7.6.zip 
 
 ##################################################################
 ##                   OVERVIEW   SECTION                         ##
@@ -21,10 +21,10 @@ curl -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifa
 ##################################################################
 
 #unzip the archive 
-jar xf artifactory-pro-<VERSION?>.zip
+jar xf artifactory-pro-4.7.6.zip
 
-#get and deploy the license
-curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>"  <url-to-central-artifactory>/jswampup/licenses/artifactory-P1.lic -o artifactory-pro-<VERSION?>/etc/artifactory.lic
+#get and deploy the license 
+%SCRIPT_DIR%\license.bat
 
 #open a new command line and navigate to your WORKSPACE_CLASS directory
 #launch Artifactory
@@ -84,11 +84,11 @@ curl -uadmin:password -X DELETE http://localhost:9091/artifactory/api/security/p
 cd c:\
 cd \
 
-curl  -H "X-JFrog-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/jenkins/windows/swampupjenkins.zip
+curl  -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/jenkins/windows/swampupjenkins.zip
 
-jar xf swampup.zip
+jar xf swampupjenkins.zip
 
-cd swampup
+cd swampupjenkins
 
 set JENKINS_HOME=%cd%
 
@@ -133,6 +133,6 @@ curl -H "X-JFrog-Artifactory-Art-Api:<InsertYourApiKeyHere>" -X POST http://loca
 ##                           LET'S USE THE CLI                                ##
 ################################################################################
 #download the CLI from our central Artifactory (in real life do it from bintray)
-curl  -H "X-JFrog-Artifactory-Art-Api:<NeedApiKeyHere>" -O <url-to-central-artifactory>/jswampup/cli/1.1.0/jfrog-cli-windows-amd64
+curl  -H "X-JFrog-Artifactory-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/cli/1.1.0/jfrog-cli-windows-amd64
 
 #upload some files with properties : product.version=1.0 and product.name=PiedPiper
