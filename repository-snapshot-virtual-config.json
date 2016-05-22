@@ -2,7 +2,7 @@
     "rclass" : "virtual",
     "packageType": "maven",
     "description": "My virtual repository for snapshots",
-    "repositories": ["my-mvn-snapshot-local", "ext-snapshot-local", "remote-repos"],
+    "repositories": ["my-mvn-snapshot-local", "ext-snapshot-local", "remote-repo"],
     "artifactoryRequestsCanRetrieveRemoteArtifacts": false,
     "defaultDeploymentRepo": "my-mvn-snapshot-local"
 }
