@@ -24,13 +24,13 @@ curl -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar
 unzip artifactory-pro-4.7.6.zip -d $WORKSPACE_CLASS
 
 #get and deploy the license
-sh $SCRIPT_DIR/license.sh
+sh $SCRIPT_DIR/license.sh <ProvideAName>
 
 #open a new terminal and navigate to your WORKSPACE_CLASS
 #launch Artifactory
 cd artifactory-pro-4.7.6\bin
 
-sh artifactory.sh <ProvideAName>
+sh artifactory.sh 
 
 ##################################################################
 ##                   OVERVIEW   SECTION                         ##

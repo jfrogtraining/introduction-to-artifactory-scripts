@@ -24,13 +24,13 @@ curl -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar
 jar xf artifactory-pro-4.7.6.zip
 
 #get and deploy the license 
-%SCRIPT_DIR%\license.bat
+%SCRIPT_DIR%\license.bat <ProvideAName>
 
 #open a new command line and navigate to your WORKSPACE_CLASS directory
 #launch Artifactory
 cd artifactory-pro-4.?.?\bin
 
-artifactory.bat <ProvideAName>
+artifactory.bat
 
 ##################################################################
 ##                   OVERVIEW   SECTION                         ##
