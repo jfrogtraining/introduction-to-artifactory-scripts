@@ -100,8 +100,8 @@ mvn install
 cd $HOME
 
 #for linux users use the following :
-#curl -o swampup.zip -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" http://192.168.1.139:8081/artifactory/jswampup-remote-cache/jenkins/ubuntu/jenkins.zip 
-curl -o swampup.zip -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" http://192.168.1.139:8081/artifactory/jswampup-remote-cache/jenkins/mac/swampup.zip
+#curl -o swampup.zip -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" http://192.168.1.139:8081/artifactory/jswampup-remote/jenkins/ubuntu/jenkins.zip 
+curl -o swampup.zip -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" http://192.168.1.139:8081/artifactory/jswampup-remote/jenkins/mac/swampup.zip
 
 unzip swampup.zip
 
