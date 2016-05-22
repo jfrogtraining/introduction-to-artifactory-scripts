@@ -95,17 +95,21 @@ mvn install
 ################################################################################
 ##                   WORKING WITH CI SERVER (AFTERNOON)                       ##
 ################################################################################
-
+#open a new command line
 #download preconfigured jenkins 
+cd $HOME
 
+#for linux users use the following :
+# TODO curl jenkins linux
+curl -o swampup.zip -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" http://10.60.1.139:8081/artifactory/jswampup-remote-cache/jenkins/mac/swampup.zip
 
+unzip swampup.zip
 
-#TODO
+export JENKINS_HOME=$HOME/swampup/jenkins
 
+cd swampup 
 
-
-
-
+java -jar jenkins.war --httpPort=9090
 
 ################################################################################
 ##                   Working with build tools and CI Server                   ##

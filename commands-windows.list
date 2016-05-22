@@ -106,7 +106,7 @@ jar xf swampupjenkins.zip
 
 cd swampupjenkins
 
-set JENKINS_HOME=%cd%
+set JENKINS_HOME=%cd%\jenkins
 
 java -jar jenkins.war --httpPort=9090
 
