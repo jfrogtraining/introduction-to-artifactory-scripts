@@ -153,9 +153,9 @@ curl  -H "X-JFrog-Artifactory-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTq
 
 cd %WORKSPACE_CLASS%
 #upload some files with properties : product.version=1.0 and product.name=PiedPiper
-jfrog.exe rt upload "artifactory-*.zip" "my-generic-local" --url=http://localhost:9091/artifactory --user=admin --password=password --props="Product.Name=PiedPiper;Product.Version=1.0"
+jfrog.exe rt upload "artifactory-*.zip" "my-generic-local" --url=http://localhost:9091/artifactory --user=admin --password=password --props="product.name=PiedPiper;product.version=1.0"
 
 ################################################################################
 ##                           USE AQL                                          ##
 ################################################################################
-curl -H "X-JFrog-Art-Api:<InsertYourApiKeyHere>" -X GET http://localhost:9091/artifactory/api/search/aql -T %SCRIPT_DIR%\aql.json
+curl -H "Content-Type:application/json" -H "X-JFrog-Art-Api:<InsertYourApiKeyHere>" -X POST http://localhost:9091/artifactory/api/search/aql -T %SCRIPT_DIR%\aql.json

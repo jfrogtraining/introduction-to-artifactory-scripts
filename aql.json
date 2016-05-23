@@ -1,5 +1,5 @@
 items.find(
 {
-    "@Product.Name" : {"$eq" : "PiedPiper"},
-    "@Product.Version" : {"$eq" : "1.0"}
+    "@product.name" : {"$eq" : "PiedPiper"},
+    "@product.version" : {"$eq" : "1.0"}
 })
