@@ -144,7 +144,7 @@ curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/repositories/
 curl -uadmin:password -X PUT http://localhost:9091/artifactory/api/security/permissions/release-eng-perm -H "content-type: application/vnd.org.jfrog.artifactory.security.PermissionTarget+json" -T $SCRIPT_DIR/permission-target-release-eng.json
 
 #promote the build to production
-curl -H "X-JFrog-Artifactory-Art-Api:<InsertYourApiKeyHere>" -X POST http://localhost:9091/artifactory/api/build/promotion/<InsertBuildName>/<InsertBuildNumber> -T $SCRIPT_DIR/promote.json
+curl -H "X-JFrog-Art-Api:<InsertYourApiKeyHere>" -X POST http://localhost:9091/artifactory/api/build/promotion/<InsertBuildName>/<InsertBuildNumber> -T $SCRIPT_DIR/promote.json
 
 ################################################################################
 ##                           LET'S USE THE CLI                                ##
