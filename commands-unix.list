@@ -154,7 +154,7 @@ curl  -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVca
 
 cd $WORKSPACE_CLASS
 #upload some files with properties : product.version=1.0 and product.name=PiedPiper
-jfrog rt upload "artifactory-*.zip" "my-generic-local" --url=http://localhost:9091/artifactory --user=admin --password=password --props="Product.Name=PiedPiper;Product.Version=1.0"
+./jfrog rt upload "artifactory-*.zip" "my-generic-local" --url=http://localhost:9091/artifactory --user=admin --password=password --props="Product.Name=PiedPiper;Product.Version=1.0"
 
 ################################################################################
 ##                           USE AQL                                          ##
