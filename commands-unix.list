@@ -150,6 +150,13 @@ curl -H "content-type:Application/json" -H "X-JFrog-Art-Api:<InsertYourApiKeyHer
 ##                           LET'S USE THE CLI                                ##
 ################################################################################
 #download the CLI from our central Artifactory (in real life do it from bintray)
-curl  -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/cli/1.1.0/jfrog-cli-windows-amd64
+curl  -H "X-JFrog-Art-Api:AKCp2UNgwajwpoz5PghBirpgR5xafggbFyCkSU4DTqK2fQPd9thVcar7wHqk2BNmYjg1km6vJ" -O http://192.168.1.139:8081/artifactory/jswampup-remote/cli-1.2/mac/jfrog
 
+cd $WORKSPACE_CLASS
 #upload some files with properties : product.version=1.0 and product.name=PiedPiper
+jfrog rt upload "artifactory-*.zip" "my-generic-local" --url=http://localhost:9091/artifactory --user=admin --password=password --props="Product.Name=PiedPiper;Product.Version=1.0"
+
+################################################################################
+##                           USE AQL                                          ##
+################################################################################
+curl -H "X-JFrog-Art-Api:<InsertYourApiKeyHere>" -X GET http://localhost:9091/artifactory/api/search/aql -T $SCRIPT_DIR\aql.json
